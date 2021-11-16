@@ -1,7 +1,7 @@
 """ user tools app """     # Adding docstring module #
 # Password Generator #
 import random
-
+import argparse
 def append_chars_to_pool(
     first_letter: str,
     last_letter: str,
@@ -12,19 +12,29 @@ def append_chars_to_pool(
         pool.append(chr(code))
 
 if __name__ == "__main__":      # Indentation is Curly Braces for Python
+    # Add argument when invoking the program #
+    parser = argparse.ArgumentParser()
+    parser.add_argument("password_length", type=int, help="Length of Password")
 
-    password_length = int(input("Please enter a Password Length: "))
-    print("Password Length: " + str(password_length))
+    args = parser.parse_args()
 
+    print("Password Length: " + str(args.password_length))
     char_pool: list[str] = []          # List datatype
 
     append_chars_to_pool('0','9',char_pool)
     append_chars_to_pool('A','Z',char_pool)
     append_chars_to_pool('a','z',char_pool)
 
+    char_pool.append('_')
+    char_pool.append('-')
+    char_pool.append('%')
+    char_pool.append('$')
+    char_pool.append('#')
+    char_pool.append('@')
+
     generated_password = []
 
-    for _ in range(password_length):
+    for _ in range(args.password_length):
         #Range value goes upto len - 1
         char_pool_index  = random.randrange(0,len(char_pool))
         # Each generated char stored in generated_password
