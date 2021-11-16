@@ -1,5 +1,6 @@
 """ user tools app """     # Adding docstring module #
 # Password Generator #
+# Check the options available : main.py --help #
 import random
 from user_tools.args import get_args
 
@@ -18,16 +19,22 @@ if __name__ == "__main__":      # Indentation is Curly Braces for Python
     print("Password Length: " + str(args.password_length))
     char_pool: list[str] = []          # List datatype
 
-    append_chars_to_pool('0','9',char_pool)
-    append_chars_to_pool('A','Z',char_pool)
-    append_chars_to_pool('a','z',char_pool)
+    if not args.exclude_numbers:
+        append_chars_to_pool('0','9',char_pool)
 
-    char_pool.append('_')
-    char_pool.append('-')
-    char_pool.append('%')
-    char_pool.append('$')
-    char_pool.append('#')
-    char_pool.append('@')
+    if not args.exclude_letters and not args.exclude_uppercase_letters:
+        append_chars_to_pool('A','Z',char_pool)    
+
+    if not args.exclude_letters or not args.exclude_lowercase_letters:
+        append_chars_to_pool('a','z',char_pool)
+
+    if not args.exclude_symbols:
+        char_pool.append('_')
+        char_pool.append('-')
+        char_pool.append('%')
+        char_pool.append('$')
+        char_pool.append('#')
+        char_pool.append('@')
 
     generated_password = []
 
