@@ -2,27 +2,33 @@
 # Password Generator #
 import random
 
+def append_chars_to_pool(
+    first_letter: str,
+    last_letter: str,
+    pool: list[str]) -> None:
+    """ append chars to the char pool """
+
+    for code in range(ord(first_letter), ord(last_letter) + 1):
+        pool.append(chr(code))
+
 if __name__ == "__main__":      # Indentation is Curly Braces for Python
 
     password_length = int(input("Please enter a Password Length: "))
-    #print(type(password_length))   # Prints type of variable
     print("Password Length: " + str(password_length))
 
-    char_pool = []          # List datatype
+    char_pool: list[str] = []          # List datatype
 
-    for char_code in range(ord('A'), ord('Z') + 1): # ord returns Unicode number for a character
-        char_pool.append(chr(char_code))    # List is created having all characters from A to Z
-
-    for char_code in range(ord('a'), ord('z') + 1):
-        char_pool.append(chr(char_code))    # Adding a to z to char_pool list
-
-    for char_code in range(ord('0'), ord('9') + 1):
-        char_pool.append(chr(char_code))    # Adding 0 to 9 to char_pool list
+    append_chars_to_pool('0','9',char_pool)
+    append_chars_to_pool('A','Z',char_pool)
+    append_chars_to_pool('a','z',char_pool)
 
     generated_password = []
 
     for _ in range(password_length):
-        char_pool_index  = random.randrange(0,len(char_pool)) #Range value goes upto len - 1
-        generated_password.append(char_pool[char_pool_index]) # Each generated char stored in generated_password
+        #Range value goes upto len - 1
+        char_pool_index  = random.randrange(0,len(char_pool))
+        # Each generated char stored in generated_password
+        generated_password.append(char_pool[char_pool_index])
 
-    print("".join(generated_password))  # Another way of concat each character var
+    # Another way of concat each character var
+    print("".join(generated_password))
