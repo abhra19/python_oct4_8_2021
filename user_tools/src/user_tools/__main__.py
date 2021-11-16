@@ -1,7 +1,8 @@
 """ user tools app """     # Adding docstring module #
 # Password Generator #
 import random
-import argparse
+from user_tools.args import get_args
+
 def append_chars_to_pool(
     first_letter: str,
     last_letter: str,
@@ -12,12 +13,8 @@ def append_chars_to_pool(
         pool.append(chr(code))
 
 if __name__ == "__main__":      # Indentation is Curly Braces for Python
-    # Add argument when invoking the program #
-    parser = argparse.ArgumentParser()
-    parser.add_argument("password_length", type=int, help="Length of Password")
 
-    args = parser.parse_args()
-
+    args=get_args()
     print("Password Length: " + str(args.password_length))
     char_pool: list[str] = []          # List datatype
 
